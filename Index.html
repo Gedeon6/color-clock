@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2019 by PerczelAron (http://jsbin.com/geciqew/17/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="színóra">
+  <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Quantico&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width">
+  <title>színóra</title>
+<style id="jsbin-css">
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#clock{  
+  position: relative;
+  top: 50%;
+  margin-top: -2.25rem;
+}
+
+#clock-face {
+  width: 12rem;
+  font-family: 'Quantico', sans-serif;
+  font-size: 2rem;
+  color: #df0000;
+  background-color: #404040;
+  border: 5px solid black;
+  border-radius: 1.5rem;
+  box-shadow: black 10px -6px 3px;
+}
+
+@media (min-width: 500px){
+  
+   #clock{  
+    margin-top: -3rem;
+  } 
+  
+  #clock-face {
+    width: 18rem;
+    font-size: 3rem;
+    border-radius: 2rem;
+    box-shadow: black 15px -10px 3px;
+  }
+}
+
+@media (min-width: 1025px){
+  
+  #clock{  
+    margin-top: -4rem;
+  }
+  
+  #clock-face {
+    width: 28rem;
+    font-size: 5rem;
+    border-radius: 3rem;
+  }
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+  <div id="clock">
+    <div id="clock-face">
+      <span id></span>
+    </div>
+  </div>
+<script id="jsbin-javascript">
+function colorClock() {
+  
+  /* =============================
+        GETTING VARIABLES
+============================= */
+  
+  let date = new Date();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  
+  /* =============================
+        BACKGROUND COLOR
+============================= */
+
+    let colorObject = {
+      '0': ['1a1a1a', '262626', '333333', '262626'],
+      '1': ['1a1a1a', '262626', '333333', '262626'],
+      '2': ['1a1a1a', '262626', '333333', '262626'],
+      '3': ['1a1a1a', '262626', '333333', '262626'],
+      '4': ['404040', '4d4d4d', '595959', '4d4d4d'],
+      '5': ['990000', 'b30000', 'cc0000', 'b30000'],
+      '6': ['e60000', 'ff0000', 'ff1900', 'ff0000'],
+      '7': ['ff1900', 'ff3300', 'ff5500', 'ff3300'],
+      '8': ['ff7000', 'ff8800', 'ffa800', 'ff8800'],
+      '9': ['ffba00', 'ffca00', 'ffda00', 'ffca00'],
+      '10': ['ffea00', 'ffec1a', 'ffee33', 'ffec1a'],
+      '11': ['ffee33', 'fff04d', 'fff266', 'fff04d'],
+      '12': ['fff266', 'fff480', 'fff799', 'fff480'],
+      '13': ['fff266', 'fff480', 'fff799', 'fff480'],
+      '14': ['ffee33', 'fff04d', 'fff266', 'fff04d'],
+      '15': ['ffea00', 'ffec1a', 'ffee33', 'ffec1a'],
+      '16': ['ffba00', 'ffca00', 'ffda00', 'ffca00'],
+      '17': ['ff7000', 'ff8800', 'ffa800', 'ff8800'],
+      '18': ['ff1900', 'ff3300', 'ff5500', 'ff3300'],
+      '19': ['e60000', 'ff0000', 'ff1900', 'ff0000'],
+      '20': ['990000', 'b30000', 'cc0000', 'b30000'],
+      '21': ['404040', '4d4d4d', '595959', '4d4d4d'],
+      '22': ['1a1a1a', '262626', '333333', '262626'],
+      '23': ['1a1a1a', '262626', '333333', '262626'],
+      
+      'colorPicker': function() {
+        let colorArray = [];
+        let i=1;
+        let j=0; 
+        
+        while (i<=15) {
+          while (j<=3){
+          colorArray.push(this[hours][j]);
+            j++;
+          }          
+          i++;
+          j=0;
+        }       
+        
+        /*console.log(colorArray[seconds]);*/
+        
+        return '#' + colorArray[seconds];
+      }
+    };
+
+  document.body.style.background = colorObject.colorPicker();
+  
+  /* =============================
+          CLOCK DISPLAY
+============================= */
+    
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }  
+    if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+
+  let colon = ':';
+    
+  if (seconds % 2 != 0) {
+    colon = ' ';
+  }
+  
+  let clockFace = hours + colon + minutes + colon + seconds;
+  
+  document.getElementById('clock-face').innerHTML = clockFace;
+  
+  /* =============================
+          TURN ON CLOCK
+============================= */
+  
+  setTimeout(function() {
+    colorClock();
+  }, 1000);
+}
+
+colorClock();
+</script>
+</body>
+</html>
